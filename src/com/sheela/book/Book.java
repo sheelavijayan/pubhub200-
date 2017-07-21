@@ -37,6 +37,10 @@ public class Book {
 	public String toString() {
 		return "Book [id=" + id + ", name=" + name + ", price=" + price + ", published_date=" + published_date + "]";
 	}
+		public void add(Book book) {
+			// TODO Auto-generated method stub
+			
+		}
 		
 		
 		

@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import com.sheela.book.Book;
 import com.sheela.order.Order;
 
@@ -16,34 +18,26 @@ import util.ConnectionUtil;
 
 public class OrderDAO {
 	//public static void main(String[] args) throws ClassNotFoundException, SQLException {
+	private JdbcTemplate jdbcTemplate = ConnectionUtil.getJdbcTemplate();
+
 	public void add(Order order) throws SQLException, ClassNotFoundException {
 
-	
-		Connection conn=ConnectionUtil.getConnection();
+	Order order1=new Order();
 		LocalDate date=LocalDate.parse( "2017-10-09");
 		String sql="insert into orders(user_id,book_id,status,quantity,orders_date)values(?,?,?,?,?)";
-		PreparedStatement pst=conn.prepareStatement(sql);
-		pst.setInt(1,order.getUserId());
-		pst.setInt( 2, order.getBookId());
-		pst.setString(3,order.getStatus());
-		pst.setInt(4,order.getQuantity());
-		pst.setDate(5,Date.valueOf(date));
-		
-		int row=pst.executeUpdate();
-		System.out.println(row);
+		Object[] params={order1.getUserId(),order1.getBookId(),order1.getStatus(),order1.getQuantity(),order1.getOrderDate()};
+		int rows=jdbcTemplate.update(sql,params);
+
+		System.out.println(rows);
 	}
 	//public static void main(String[] args) throws ClassNotFoundException, SQLException {
 	public List<Order> login() throws ClassNotFoundException, SQLException
 
 	{
-		Connection conn=ConnectionUtil.getConnection();
 		String sql="select id,user_id,book_id,status,quantity,orders_date from orders ";
-		PreparedStatement pst = conn.prepareStatement(sql);
-		List<Order>orderList=new ArrayList<Order>();
-		
-		ResultSet rs = pst.executeQuery();
-		while (rs.next()) {
-			int id1 = rs.getInt("id");
+		List<Order>orderList = (List<Order>) jdbcTemplate.queryForObject(sql, (rs,rowNo)-> {
+
+		int id1 = rs.getInt("id");
 			int userId = rs.getInt("user_id");
 			int bookId = rs.getInt("book_id");
 			String status=rs.getString("status");
@@ -57,10 +51,10 @@ public class OrderDAO {
 	order.setStatus(status);
 	order.setQuantity(quantity);
 	  order.setOrderDate(orderDate.toLocalDate());
-	orderList.add(order);
-
+	//orderList.add(order);
+return order;
 		
-		}
+		});
 		//return bookList;
 		System.out.println(orderList);
 		

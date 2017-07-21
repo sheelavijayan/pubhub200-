@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import com.sheela.book.Book;
 
 import util.ConnectionUtil;
@@ -16,19 +18,17 @@ import util.ConnectionUtil;
 public class BookDAO {
 	// public static void main(String[] args) throws ClassNotFoundException,
 	// SQLException {
+	private JdbcTemplate jdbcTemplate = ConnectionUtil.getJdbcTemplate();
+
 	public void register(Book book) throws SQLException, ClassNotFoundException {
 		LocalDate p = LocalDate.parse("2016-12-12");
 		Connection conn = ConnectionUtil.getConnection();
 
 		String sql = "insert into book(name,price,published_date)values(?,?,?)";
-
-		PreparedStatement pst = conn.prepareStatement(sql);
-		pst.setString(1, book.getName());
-		pst.setInt(2, book.getPrice());
-		pst.setDate(3, Date.valueOf(p));
-
-		int row = pst.executeUpdate();
-		System.out.println(row);
+		Object[] params={book.getName(),book.getPrice(),book.getPublished_date()};
+		int rows=jdbcTemplate.update(sql,params);
+		
+		System.out.println(rows);
 
 	}
 
@@ -36,13 +36,10 @@ public class BookDAO {
 		// public static void main(String[] args) throws ClassNotFoundException,
 		// SQLException {
 
-		Connection conn = ConnectionUtil.getConnection();
 		String sql = "select id,name,price,published_date from book ";
-		PreparedStatement pst = conn.prepareStatement(sql);
-		List<Book> bookList = new ArrayList<Book>();
+		
+		List<Book>bookList = (List<Book>) jdbcTemplate.queryForObject(sql, (rs,rowNo)-> {
 
-		ResultSet rs = pst.executeQuery();
-		while (rs.next()) {
 			int id1 = rs.getInt("id");
 			String name1 = rs.getString("name");
 			int price = rs.getInt("price");
@@ -53,9 +50,8 @@ public class BookDAO {
 			book.setName(name1);
 			book.setPrice(price);
 			book.setPublished_date(publishedDate.toLocalDate());
-			bookList.add(book);
-
-		}
+			return book;
+		});
 		// return bookList;
 		System.out.println(bookList);
 		//for (Book b : bookList) {
