@@ -1,4 +1,4 @@
-package Controller;
+package com.sheela.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sheela.book.Book;
-import com.sheela.order.Order;
-import com.sheela.orderdao.OrderDAO;
+import com.sheela.dao.OrderDAO;
+import com.sheela.model.Book;
+import com.sheela.model.Order;
 
 import jdk.nashorn.internal.ir.RuntimeNode.Request;
 
@@ -29,9 +29,8 @@ public class OrderBookServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		// out.println("Register Servlet");
 		String userId = request.getParameter("user_id");
-		String bookId = request.getParameter("book_id");		
+		String bookId = request.getParameter("book_id");
 		String quantity = request.getParameter("quantity");
-		
 
 		int uId = Integer.parseInt(userId);
 		int bId = Integer.parseInt(bookId);
@@ -44,8 +43,7 @@ public class OrderBookServlet extends HttpServlet {
 		order.setQuantity(quatity);
 		order.setOrderDate(LocalDate.now());
 		out.println(order);
-		
-		
+
 		OrderDAO orderdao = new OrderDAO();
 		try {
 			orderdao.add(order);

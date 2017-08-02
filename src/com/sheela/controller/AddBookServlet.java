@@ -1,4 +1,4 @@
-package Controller;
+package com.sheela.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sheela.book.Book;
-import com.sheela.bookdao.BookDAO;
+import com.sheela.dao.BookDAO;
+import com.sheela.model.Book;
 
 /**
  * Servlet implementation class AddBook

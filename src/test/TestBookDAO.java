@@ -1,13 +1,11 @@
-package com.sheela.testbookdao;
+package test;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.sheela.book.Book;
-import com.sheela.bookdao.BookDAO;
-import com.sheela.order.Order;
-import com.sheela.user.User;
+import com.sheela.dao.BookDAO;
+import com.sheela.model.Book;
 
 public class TestBookDAO {
 
@@ -19,11 +17,10 @@ public class TestBookDAO {
 		book.setPublished_date(date);
 
 		BookDAO bookdao = new BookDAO();
-		//bookdao.register(book);
-		List<Book> bookList=bookdao.listBook();
-		for(Book b:bookList)
-		{
+		// bookdao.register(book);
+		List<Book> bookList = bookdao.listBook();
+		for (Book b : bookList) {
 			System.out.println(b);
-			}
+		}
 	}
 }

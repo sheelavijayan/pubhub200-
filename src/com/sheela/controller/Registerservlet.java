@@ -1,4 +1,4 @@
-package Controller;
+package com.sheela.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sheela.user.User;
-import com.sheela.userdao.UserDAO;
+import com.sheela.dao.UserDAO;
+import com.sheela.model.User;
 
 /**
  * Servlet implementation class Registerservlet

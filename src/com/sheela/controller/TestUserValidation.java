@@ -1,4 +1,4 @@
-package Controller;
+package com.sheela.controller;
 
 public class TestUserValidation {
 	public static void main(String[] args){

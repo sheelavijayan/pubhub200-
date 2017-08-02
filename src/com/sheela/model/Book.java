@@ -1,4 +1,4 @@
-package com.sheela.book;
+package com.sheela.model;
 
 import java.sql.Date;
 import java.time.LocalDate;

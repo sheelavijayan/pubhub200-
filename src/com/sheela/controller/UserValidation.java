@@ -1,4 +1,4 @@
-package Controller;
+package com.sheela.controller;
 
 public class UserValidation {
 	public static void validateLoginFields(String email, String password) throws Exception {

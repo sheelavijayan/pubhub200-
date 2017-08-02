@@ -1,4 +1,4 @@
-package com.sheela.bookdao;
+package com.sheela.dao;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -11,9 +11,8 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.sheela.book.Book;
-
-import util.ConnectionUtil;
+import com.sheela.model.Book;
+import com.sheela.util.ConnectionUtil;
 
 public class BookDAO {
 	// public static void main(String[] args) throws ClassNotFoundException,
@@ -25,9 +24,9 @@ public class BookDAO {
 		Connection conn = ConnectionUtil.getConnection();
 
 		String sql = "insert into book(name,price,published_date)values(?,?,?)";
-		Object[] params={book.getName(),book.getPrice(),book.getPublished_date()};
-		int rows=jdbcTemplate.update(sql,params);
-		
+		Object[] params = { book.getName(), book.getPrice(), book.getPublished_date() };
+		int rows = jdbcTemplate.update(sql, params);
+
 		System.out.println(rows);
 
 	}
@@ -37,8 +36,8 @@ public class BookDAO {
 		// SQLException {
 
 		String sql = "select id,name,price,published_date from book ";
-		
-		List<Book>bookList = (List<Book>) jdbcTemplate.queryForObject(sql, (rs,rowNo)-> {
+
+		List<Book> bookList = jdbcTemplate.query(sql, (rs, rowNo) -> {
 
 			int id1 = rs.getInt("id");
 			String name1 = rs.getString("name");
@@ -54,9 +53,9 @@ public class BookDAO {
 		});
 		// return bookList;
 		System.out.println(bookList);
-		//for (Book b : bookList) {
-			//System.out.println(b);
-		//}
+		// for (Book b : bookList) {
+		// System.out.println(b);
+		// }
 		return bookList;
 
 	}

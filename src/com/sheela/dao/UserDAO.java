@@ -1,4 +1,4 @@
-package com.sheela.userdao;
+package com.sheela.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,9 +7,8 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.sheela.user.User;
-
-import util.ConnectionUtil;
+import com.sheela.model.User;
+import com.sheela.util.ConnectionUtil;
 
 public class UserDAO {
 	

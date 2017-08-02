@@ -1,4 +1,4 @@
-package com.sheela.order;
+package com.sheela.model;
 
 import java.time.LocalDate;
 
